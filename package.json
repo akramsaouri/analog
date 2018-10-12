@@ -1,0 +1,53 @@
+{
+  "name": "analog",
+  "version": "1.0.0",
+  "description": "Analog",
+  "main": "main.js",
+  "scripts": {
+    "start": "run-electron .",
+    "test": "jest",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "repository": "https://github.com/akramsaouri/analog",
+  "keywords": [
+    "Electron",
+    "analog",
+    "time",
+    "tracker"
+  ],
+  "author": "Akram Saouri",
+  "license": "mit",
+  "devDependencies": {
+    "electron": "^3.0.0",
+    "electron-builder": "^20.28.4",
+    "husky": "^1.1.2",
+    "jest": "^23.6.0",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3",
+    "run-electron": "^0.1.0"
+  },
+  "dependencies": {
+    "date-fns": "^1.29.0",
+    "lowdb": "^1.0.0",
+    "menubar": "^5.2.3"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "build": {
+    "appId": "com.analog.akram"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}

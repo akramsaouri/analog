@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='UTF-8'>
+  <title>Analog</title>
+</head>
+
+<body>
+  <div class='app'>
+
+    <div class='ticker-container'>
+      <div>
+        <span class='ticker-duration'></span>
+      </div>
+    </div>
+
+    <div class='dashboard-container'>
+    </div>
+
+    <div class="form-container">
+    </div>
+
+  </div>
+
+  <script>
+    // electron deps
+    const { remote, ipcRenderer: ipc } = require('electron')
+
+    // remote refs
+    // also it's accessible in renderer scripts 
+    const { analog } = remote.require('./main.js')
+
+    // mount renderer scripts
+    const Dashboard = require('./renderer/sections/Dashboard')
+    new Dashboard('dashboard').mount()
+
+    const Ticker = require('./renderer/sections/Ticker')
+    new Ticker('ticker').mount()
+
+    const Form = require('./renderer/sections/Form')
+    new Form('form').mount()
+
+  </script>
+
+</body>
+
+</html>
