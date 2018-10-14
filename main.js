@@ -4,24 +4,21 @@ const {
   BrowserWindow,
   globalShortcut,
   ipcMain: ipc,
-  Notification
+  Notification,
+  Tray,
+  Menu
 } = require('electron')
 const lowdb = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const EventEmitter = require('events')
-const menubar = require('menubar')
 const { join } = require('path')
+const isDev = require('electron-is-dev')
 
 const Analog = require('./Analog')
 
 const eventEmitter = new EventEmitter()
 const db = lowdb(new FileSync('/Users/akram/Documents/analog.json'))
 const analog = new Analog(db, eventEmitter)
-const mb = menubar({
-  icon: analog.db.get('timer').value().active
-    ? join(__dirname, './icons/started.png')
-    : join(__dirname, './icons/stopped.png')
-})
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -29,13 +26,17 @@ let mainWindow
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 800, height: 600 })
+  mainWindow = new BrowserWindow({ width: 800, height: 600, show: false })
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  if (isDev) {
+    mainWindow.webContents.openDevTools()
+  }
+
+  tray = new Tray(join(__dirname, './icons/stopped.png'))
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -43,6 +44,11 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+  })
+
+  mainWindow.on('ready-to-show', function() {
+    mainWindow.show()
+    mainWindow.focus()
   })
 
   // register global shortcut listener
@@ -58,19 +64,30 @@ function createWindow() {
       title: project,
       subtitle: `GO GO GO!`
     }).show()
-    mb.tray.setImage(join(__dirname, './icons/started.png'))
+    tray.setImage(join(__dirname, './icons/started.png'))
+    updateRenderer()
   })
 
   eventEmitter.on('timer-stopped', ({ project, lastSessionInMin }) => {
-    if (lastSessionInMin > 1) {
+    if (lastSessionInMin >= 1) {
       new Notification({
         title: project,
         subtitle: `These were some good ${lastSessionInMin} minutes.`
       }).show()
     }
-    mb.tray.setImage(join(__dirname, './icons/started.png'))
+    tray.setImage(join(__dirname, './icons/stopped.png'))
+    updateRenderer()
   })
+
+  function updateRenderer() {
+    const sections = ['ticker', 'dashboard']
+    for (let i = 0; i < sections.length; i++) {
+      const element = sections[i]
+      mainWindow.webContents.send('update_' + element)
+    }
+  }
 }
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.

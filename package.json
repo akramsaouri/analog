@@ -29,8 +29,8 @@
   },
   "dependencies": {
     "date-fns": "^1.29.0",
-    "lowdb": "^1.0.0",
-    "menubar": "^5.2.3"
+    "electron-is-dev": "^1.0.1",
+    "lowdb": "^1.0.0"
   },
   "prettier": {
     "semi": false,
