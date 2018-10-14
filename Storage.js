@@ -18,9 +18,7 @@ class Storage {
       }
     }
     this.db = db
-    this.db
-      .defaults(defaultState)
-      .write()
+    this.db.defaults(defaultState).write()
     this.db._.mixin({
       byMonth: this.byMonth,
       inc: this.inc
