@@ -11,10 +11,10 @@ const {
 const lowdb = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const EventEmitter = require('events')
-const { join } = require('path')
 const isDev = require('electron-is-dev')
 
 const Analog = require('./Analog')
+const { getTrayImage } = require('./lib/helpers')
 
 const eventEmitter = new EventEmitter()
 const db = lowdb(new FileSync('/Users/akram/Documents/analog.json'))
@@ -36,7 +36,7 @@ function createWindow() {
     mainWindow.webContents.openDevTools()
   }
 
-  tray = new Tray(join(__dirname, './icons/stopped.png'))
+  tray = new Tray(getTrayImage(analog.db.get('timer').active))
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -64,7 +64,7 @@ function createWindow() {
       title: project,
       subtitle: `GO GO GO!`
     }).show()
-    tray.setImage(join(__dirname, './icons/started.png'))
+    tray.setImage(getTrayImage(true))
     updateRenderer()
   })
 
@@ -75,7 +75,7 @@ function createWindow() {
         subtitle: `These were some good ${lastSessionInMin} minutes.`
       }).show()
     }
-    tray.setImage(join(__dirname, './icons/stopped.png'))
+    tray.setImage(getTrayImage(false))
     updateRenderer()
   })
 
