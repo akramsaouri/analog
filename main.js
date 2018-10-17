@@ -5,19 +5,22 @@ const {
   globalShortcut,
   ipcMain: ipc,
   Notification,
-  Tray,
-  Menu
+  Tray
 } = require('electron')
 const lowdb = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const EventEmitter = require('events')
 const isDev = require('electron-is-dev')
+const { join } = require('path')
 
 const Analog = require('./Analog')
 const { getTrayImage } = require('./lib/helpers')
 
 const eventEmitter = new EventEmitter()
-const db = lowdb(new FileSync('/Users/akram/Documents/analog.json'))
+const dbPath = isDev
+  ? process.cwd()
+  : `${process.env.HOME}/Library/Application Support/analog`
+const db = lowdb(new FileSync(join(dbPath, '/analog.json')))
 const analog = new Analog(db, eventEmitter)
 
 // Keep a global reference of the window object, if you don't, the window will

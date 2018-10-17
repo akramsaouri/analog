@@ -4,16 +4,16 @@ class Storage {
     const defaultState = {
       projects: [
         {
-          name: 'the next big thing',
+          name: 'Your very first task',
           analogs: {
-            [getMonthKey(new Date())]: 350
+            [getMonthKey(new Date())]: 0
           }
         }
       ],
       timer: {
-        project: 'the next big thing',
+        project: 'Your very first task',
         active: false,
-        lastSessionInMin: 15,
+        lastSessionInMin: 0,
         launchedAt: new Date()
       }
     }
