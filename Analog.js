@@ -10,7 +10,7 @@ class Analog extends Storage {
     this.toggleTimer = this.toggleTimer.bind(this)
   }
   toggleTimer() {
-    let timer = this.db.get('timer').value()
+    const timer = this.db.get('timer').value()
     if (!timer.project) {
       throw new Error('Cannot toggle timer with unset project name.')
     }
