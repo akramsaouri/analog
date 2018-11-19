@@ -44,6 +44,9 @@ class Ticker extends IpcRenderer {
     if (this.timer.active) {
       container.innerText = formatDiff(new Date(), this.timer.launchedAt)
       setTimeout(this.subRenderTicker, 1000)
+      // new Notification('title',{
+      //   body: `GO GO GO!`
+      // })
     } else {
       container.innerText = formatMinutesDuration(this.timer.lastSessionInMin)
     }
