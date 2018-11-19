@@ -14,14 +14,15 @@ class Analog extends Storage {
     if (!timer.project) {
       throw new Error('Cannot toggle timer with unset project name.')
     }
+    const d = new Date()
+    d.setHours(d.getHours() + 1) // https://www.facebook.com/mario055/videos/1082357278612670/
     if (timer.active) {
       // save session in project
-      const d = new Date()
       const sessionInMin = diffInMin(d, timer.launchedAt)
       this.db
         .get('projects')
         .find({ name: timer.project })
-        .inc(getMonthKey(new Date()), sessionInMin)
+        .inc(getMonthKey(d), sessionInMin)
         .assign()
         .write()
 
@@ -30,7 +31,7 @@ class Analog extends Storage {
       timer.active = false
       this.emitter.emit('timer-stopped', timer)
     } else {
-      timer.launchedAt = new Date()
+      timer.launchedAt = d
       timer.active = true
       this.emitter.emit('timer-started', timer)
     }
