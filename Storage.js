@@ -25,10 +25,16 @@ class Storage {
     })
   }
   byMonth(arr, month) {
-    return arr.map(x => ({
-      ...x,
-      analogs: x.analogs[month] || 0
-    }))
+    return (
+      arr
+        // pick analog entries for selected month
+        .map(x => ({
+          ...x,
+          analogs: x.analogs[month] || 0
+        }))
+        // filter no longer active projects
+        .filter(x => !x.archived)
+    )
   }
   inc(project, month, analog) {
     if (!project.analogs[month]) {
