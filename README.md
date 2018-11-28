@@ -3,9 +3,11 @@ Analog
 
 ## tag: 1.1
 - show timer state on tray click
+- set optional limit for new session 
+- create manage projects UI
+- a better font 
 
 ## tag: 1.0
-- move create project to separate page (manage projects)
 - better month filtering
-- set limit for session
-- redesign UI
+- only show active projects
+- base path

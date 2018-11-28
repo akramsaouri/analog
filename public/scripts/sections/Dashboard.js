@@ -1,5 +1,5 @@
-const { getMonthKey, months } = require('../../lib/helpers')
-const { formatMinutesDuration } = require('../../lib/formatters')
+const { getMonthKey, months } = require('../../../lib/helpers')
+const { formatMinutesDuration } = require('../../../lib/formatters')
 const IpcRenderer = require('../IpcRenderer')
 
 class Dashboard extends IpcRenderer {
@@ -20,9 +20,9 @@ class Dashboard extends IpcRenderer {
     document.querySelectorAll('.project-toggle-btn').forEach(elm => {
       elm.addEventListener('click', this.toggleProject)
     })
-    document
-      .querySelector('.dashboard-month-select')
-      .addEventListener('change', this.selectMonth)
+    // document
+    //   .querySelector('.dashboard-month-select')
+    //   .addEventListener('change', this.selectMonth)
   }
   toggleProject({ target }) {
     const { projectName } = target.dataset
@@ -37,33 +37,37 @@ class Dashboard extends IpcRenderer {
     this.mount()
   }
   render() {
+    const filterHtml = `
+        <button class='select-month-btn prev-month'></button>
+        <h5 class='filter-month-value'>Dec 2018</h5>
+        <button class='select-month-btn next-month'></button>
+    `
     const listHtml = this.projects
       .map(p => {
         const active = this.timer.active && this.timer.project === p.name
         return `
-      <li>${p.name}:   ${formatMinutesDuration(p.analogs)} 
-      <button data-project-name="${p.name}" class="project-toggle-btn"> 
-      ${active ? 'pause' : 'start'}
-      </button>
-      </li>
+      <div class='project-item'>
+        <span class='project-name'>${p.name}</span>
+        <div class='project-details'>
+          <span class='project-analog'>${formatMinutesDuration(
+            p.analogs
+          )}</span>
+          <button data-project-name="${
+            p.name
+          }" class="project-toggle-btn"></button>
+        </div>
+      </div>
       `
       })
       .join('')
-    const optsHml = months.map(
-      x =>
-        `<option value="${x}" ${this.monthKey === x ? 'selected' : ''}>
-        ${x}
-      </option>`
-    )
     document.querySelector('.dashboard-container').innerHTML = `
-        <h4>Details</h4>
-        <select class="dashboard-month-select">
-          ${optsHml}
-        </select>
-        <ul class='project-list'>
-        ${listHtml}
-        </ul>
-      `
+    <div class='dashboard-filter'>
+      ${filterHtml}
+    </div>
+    <div class='dashboard-list'>
+      ${listHtml}
+    </div>
+    `
   }
 }
 

@@ -1,5 +1,5 @@
-const { getMonthKey } = require('../../lib/helpers')
-const { formatMinutesDuration, formatDiff } = require('../../lib/formatters')
+const { getMonthKey } = require('../../../lib/helpers')
+const { formatMinutesDuration, formatDiff } = require('../../../lib/formatters')
 const IpcRenderer = require('../IpcRenderer')
 
 class Ticker extends IpcRenderer {
@@ -44,9 +44,6 @@ class Ticker extends IpcRenderer {
     if (this.timer.active) {
       container.innerText = formatDiff(new Date(), this.timer.launchedAt)
       setTimeout(this.subRenderTicker, 1000)
-      // new Notification('title',{
-      //   body: `GO GO GO!`
-      // })
     } else {
       container.innerText = formatMinutesDuration(this.timer.lastSessionInMin)
     }
@@ -54,11 +51,9 @@ class Ticker extends IpcRenderer {
   render() {
     document.querySelector('.ticker-container').innerHTML = `
       <h5 class='ticker-project'>${this.timer.project}</h5>
-      <div>
+      <div class='ticker-container-action'>
         <span class='ticker-duration'></span>
-        <button class='ticker-toggle-btn'>
-        ${this.timer.active ? 'pause' : 'start'}
-        </button>
+        <button class='ticker-toggle-btn' />
         ${
           this.timer.active
             ? `

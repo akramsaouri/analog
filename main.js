@@ -30,7 +30,7 @@ let mainWindow, tray
 
 function createWindow() {
   mainWindow = new BrowserWindow({ width: 800, height: 600, show: false })
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile('public/index.html')
 
   if (isDev) {
     mainWindow.webContents.openDevTools()

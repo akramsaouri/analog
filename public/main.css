@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css?family=Rubik:300,400,500");
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0; }
+
+.app {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 116px 1fr; }
+
+section.ticker {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: center;
+  background-color: #72b4ee; }
+  section.ticker .logo {
+    width: 80px;
+    height: 80px;
+    background-image: url("./icons/logo.svg");
+    margin: 0 auto;
+    border-radius: 50%; }
+  section.ticker .ticker-container {
+    display: grid;
+    grid-template-columns: 1fr 151px;
+    align-items: center; }
+    section.ticker .ticker-container .ticker-project {
+      color: #faf9f9;
+      font-size: 20px;
+      font-family: 'Rubik', sans-serif;
+      font-weight: 500; }
+    section.ticker .ticker-container .ticker-container-action {
+      display: flex;
+      align-items: center; }
+      section.ticker .ticker-container .ticker-container-action .ticker-toggle-btn {
+        width: 50px;
+        height: 50px;
+        background-image: url("./icons/stop.svg");
+        background-position: center center;
+        border: none;
+        background-color: transparent;
+        margin-left: 13px; }
+      section.ticker .ticker-container .ticker-container-action .ticker-duration {
+        font-size: 20px;
+        color: #faf9f9;
+        font-weight: 300;
+        font-family: 'Rubik', sans-serif;
+        letter-spacing: 1.3px; }
+
+section.dashboard {
+  background-color: #e8f3fc;
+  display: grid;
+  grid-template-rows: 1fr 50px;
+  padding: 0 20px; }
+  section.dashboard .dashboard-container {
+    display: grid;
+    grid-template-rows: 100px 1fr;
+    height: 100%; }
+    section.dashboard .dashboard-container .dashboard-filter {
+      display: flex;
+      align-items: center;
+      margin: 0 auto; }
+      section.dashboard .dashboard-container .dashboard-filter .filter-month-value {
+        display: inline;
+        margin: 0 22px;
+        font-size: 20px;
+        font-weight: 300;
+        font-family: 'Rubik', sans-serif;
+        color: #faf9f9;
+        background-color: #459ce9;
+        padding: 10px 13px;
+        border-radius: 10px;
+        cursor: pointer; }
+      section.dashboard .dashboard-container .dashboard-filter .select-month-btn {
+        width: 18px;
+        height: 18px;
+        border: none;
+        background-color: transparent; }
+        section.dashboard .dashboard-container .dashboard-filter .select-month-btn.prev-month {
+          background-image: url("./icons/prev-arrow.svg"); }
+        section.dashboard .dashboard-container .dashboard-filter .select-month-btn.next-month {
+          background-image: url("./icons/next-arrow.svg"); }
+    section.dashboard .dashboard-container .dashboard-list .project-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 10px;
+      background-color: #faf9f9;
+      margin-bottom: 13px;
+      border-radius: 6px;
+      box-shadow: 2px 2px 2px 0.2px #d0e6f9;
+      transition: all .3s ease; }
+      section.dashboard .dashboard-container .dashboard-list .project-item:hover {
+        transform: translateY(-3px); }
+      section.dashboard .dashboard-container .dashboard-list .project-item .project-name {
+        font-size: 20px;
+        font-weight: 400;
+        font-family: 'Rubik', sans-serif;
+        color: #367bb8; }
+      section.dashboard .dashboard-container .dashboard-list .project-item .project-details {
+        display: flex;
+        align-items: center; }
+        section.dashboard .dashboard-container .dashboard-list .project-item .project-details .project-analog {
+          font-size: 16px;
+          font-weight: 300;
+          font-family: 'Rubik', sans-serif;
+          color: #cec0c1; }
+        section.dashboard .dashboard-container .dashboard-list .project-item .project-details .project-toggle-btn {
+          cursor: pointer;
+          border: none;
+          background-color: transparent;
+          width: 20px;
+          height: 20px;
+          background-image: url("./icons/resume.svg");
+          margin-left: 13px; }
+  section.dashboard .dashboard-footer {
+    margin-left: auto;
+    align-self: center; }
+    section.dashboard .dashboard-footer .manage-dashboard-btn {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-size: 16px;
+      font-family: 'Rubik', sans-serif;
+      font-weight: 300;
+      letter-spacing: 1.2px;
+      color: #367bb8;
+      outline: none; }

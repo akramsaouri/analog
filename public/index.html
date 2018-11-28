@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='UTF-8'>
+  <title>Analog</title>
+  <link rel="stylesheet" href="./main.css">
+</head>
+
+<body>
+  <div class='app'>
+
+    <section class='ticker'>
+      <div class='logo'></div>
+      <div class="ticker-container">
+        <span class='ticker-duration'></span>
+      </div>
+    </section>
+
+    <section class='dashboard'>
+      <div class="dashboard-container">
+      </div>
+      <div class="dashboard-footer">
+        <button class="manage-dashboard-btn">
+          manage projects →
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // PS: all objects declared here are accessible in the section scripts
+
+    // electron deps
+    const { remote, ipcRenderer: ipc } = require('electron')
+
+    // remote refs
+    const { analog } = remote.require('./main.js')
+
+    // mount ipc scripts
+    const Dashboard = require('./scripts/sections/Dashboard')
+    new Dashboard('dashboard').mount()
+    const Ticker = require('./scripts/sections/Ticker')
+    new Ticker('ticker').mount()
+
+    // reload on F5 or Cmd+R press 
+    const { getCurrentWindow, globalShortcut } = remote;
+
+    const reload = () => {
+      getCurrentWindow().reload()
+    }
+
+    // globalShortcut.register('F5', reload);
+    // globalShortcut.register('CommandOrControl+R', reload);
+
+    // window.addEventListener('beforeunload', () => {
+    //   globalShortcut.unregister('F5', reload);
+    //   globalShortcut.unregister('CommandOrControl+R', reload);
+    // })
+
+  </script>
+
+</body>
+
+</html>
