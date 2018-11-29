@@ -1,11 +1,9 @@
-const { getMonthKey } = require('../../../lib/helpers')
 const { formatMinutesDuration, formatDiff } = require('../../../lib/formatters')
 const IpcRenderer = require('../IpcRenderer')
 
 class Ticker extends IpcRenderer {
   constructor(name) {
     super(name)
-    this.monthKey = getMonthKey(new Date())
     this.toggleTimer = this.toggleTimer.bind(this)
     this.subRenderTicker = this.subRenderTicker.bind(this)
     this.cancelTimer = this.cancelTimer.bind(this)

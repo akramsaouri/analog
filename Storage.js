@@ -1,12 +1,13 @@
-const { getMonthKey } = require('./lib/helpers')
+const { getDateKey } = require('./lib/helpers')
 class Storage {
   constructor(db) {
+    const currentDateKey = getDateKey(new Date())
     const defaultState = {
       projects: [
         {
           name: 'Your very first task',
           analogs: {
-            [getMonthKey(new Date())]: 0
+            [currentDateKey]: 0
           }
         }
       ],
@@ -20,27 +21,27 @@ class Storage {
     this.db = db
     this.db.defaults(defaultState).write()
     this.db._.mixin({
-      byMonth: this.byMonth,
+      byDate: this.byDate,
       inc: this.inc
     })
   }
-  byMonth(arr, month) {
+  byDate(arr, dateKey) {
     return (
       arr
-        // pick analog entries for selected month
+        // pick analog entries for selected date
         .map(x => ({
           ...x,
-          analogs: x.analogs[month] || 0
+          analogs: x.analogs[dateKey] || 0
         }))
         // filter no longer active projects
         .filter(x => !x.archived)
     )
   }
-  inc(project, month, analog) {
-    if (!project.analogs[month]) {
-      project.analogs[month] = 0
+  inc(project, date, analog) {
+    if (!project.analogs[date]) {
+      project.analogs[date] = 0
     }
-    project.analogs[month] += analog
+    project.analogs[date] += analog
     return project.analogs
   }
 }

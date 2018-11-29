@@ -1,7 +1,7 @@
 const diffInMin = require('date-fns/difference_in_minutes')
 
 const Storage = require('./Storage')
-const { getMonthKey } = require('./lib/helpers')
+const { getDateKey } = require('./lib/helpers')
 
 class Analog extends Storage {
   constructor(db, emitter) {
@@ -22,7 +22,7 @@ class Analog extends Storage {
       this.db
         .get('projects')
         .find({ name: timer.project })
-        .inc(getMonthKey(d), sessionInMin)
+        .inc(getDateKey(d), sessionInMin)
         .assign()
         .write()
 
