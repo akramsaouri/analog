@@ -13,7 +13,9 @@ section.ticker {
   display: grid;
   grid-template-columns: 100px 1fr;
   align-items: center;
-  background-color: #72b4ee; }
+  background-color: #72b4ee;
+  -webkit-user-select: none;
+  -webkit-app-region: drag; }
   section.ticker .logo {
     width: 80px;
     height: 80px;

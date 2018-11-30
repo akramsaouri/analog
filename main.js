@@ -29,7 +29,7 @@ exports.analog = analog
 let mainWindow, tray
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 800, height: 600, show: false })
+  mainWindow = new BrowserWindow({ width: 800, height: 600, frame: false })
   mainWindow.loadFile('public/index.html')
 
   if (isDev) {
@@ -45,11 +45,6 @@ function createWindow() {
 
   mainWindow.on('closed', () => {
     mainWindow = null
-  })
-
-  mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
-    mainWindow.focus()
   })
 }
 
