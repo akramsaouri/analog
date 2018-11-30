@@ -77,7 +77,8 @@ class Dashboard extends IpcRenderer {
       ${filterHtml}
     </div>
     <div class='dashboard-list'>
-      ${listHtml}
+      <h5 class='list-header'>Active projects</h5>
+      <div>${listHtml}</div>
     </div>
     `
   }

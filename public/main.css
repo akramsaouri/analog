@@ -96,6 +96,14 @@ section.dashboard {
           background-image: url("./icons/prev-arrow.svg"); }
         section.dashboard .dashboard-container .dashboard-filter .select-month-btn.next-month {
           background-image: url("./icons/next-arrow.svg"); }
+    section.dashboard .dashboard-container .dashboard-list .list-header {
+      font-size: 14px;
+      font-family: Rubik, sans-serif;
+      font-weight: 400;
+      margin-bottom: 13px;
+      letter-spacing: 1.23px;
+      text-transform: capitalize;
+      color: #72b4ee; }
     section.dashboard .dashboard-container .dashboard-list .project-item {
       display: flex;
       justify-content: space-between;
