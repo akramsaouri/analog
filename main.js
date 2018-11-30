@@ -1,4 +1,3 @@
-// Modules to control application life and create native browser window
 const {
   app,
   BrowserWindow,
@@ -17,6 +16,7 @@ const Analog = require('./Analog')
 const { getTrayImage } = require('./lib/helpers')
 
 const eventEmitter = new EventEmitter()
+
 // Load dev or prod db file.
 const dbPath = isDev
   ? process.cwd()

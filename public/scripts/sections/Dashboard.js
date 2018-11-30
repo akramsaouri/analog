@@ -64,9 +64,9 @@ class Dashboard extends IpcRenderer {
           <span class='project-analog'>${formatMinutesDuration(
             p.analogs
           )}</span>
-          <button data-project-name="${
-            p.name
-          }" class="project-toggle-btn"></button>
+          <button data-project-name="${p.name}" class="project-toggle-btn ${
+          active ? 'project-active-icon' : 'project-inactive-icon'
+        }"></button>
         </div>
       </div>
       `

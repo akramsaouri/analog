@@ -15,11 +15,11 @@ class Ticker extends IpcRenderer {
     document
       .querySelector('.ticker-toggle-btn')
       .addEventListener('click', this.toggleTimer)
-    if (this.timer.active) {
-      document
-        .querySelector('.ticker-cancel-btn')
-        .addEventListener('click', this.cancelTimer)
-    }
+    // if (this.timer.active) {
+    //   document
+    //     .querySelector('.ticker-cancel-btn')
+    //     .addEventListener('click', this.cancelTimer)
+    // }
   }
   toggleTimer() {
     analog.toggleTimer()
@@ -51,16 +51,9 @@ class Ticker extends IpcRenderer {
       <h5 class='ticker-project'>${this.timer.project}</h5>
       <div class='ticker-container-action'>
         <span class='ticker-duration'></span>
-        <button class='ticker-toggle-btn' />
-        ${
-          this.timer.active
-            ? `
-          <button class='ticker-cancel-btn'>
-          cancel
-          </button>
-          `
-            : ''
-        }
+        <button class='ticker-toggle-btn ${
+          this.timer.active ? 'ticker-stop-icon' : 'ticker-start-icon'
+        } ' />
       </div>
     `
     this.subRenderTicker()
