@@ -1,15 +1,24 @@
 # analog
-Analog
 
-## tag: 1.1
-- add cancel btn
-- create manage projects UI (add archive option)
-- show timer state on tray click
-- set optional limit for new session
-- choose a better font
-- common base path
-- iterate over month filtering (https://files.slack.com/files-pri/T02QFPDEX-FED2HTVJL/img_20181128_072235.jpg) 
-- logo.svg
+> Simple month-based time tracking for your projects.
 
-## tag: 1.0
-- packaging and public release
+## Install (macOS)
+
+[Download](https://github.com/akramsaouri/analog/releases/latest) the `.dmg` file 
+
+## Usage
+### Global Shortcuts
+
+* Start/Stop timer: <kbd>cmd</kbd> + <kbd>alt</kbd> + <kbd>a</kbd>  
+
+## Dev
+Build with [Electron](http://electronjs.org/).
+
+### Run
+`$ npm install && npm start`
+
+### Build
+
+`$ npm run pack` (generates package dir without packaging it)
+
+`$ npm run dist` (packages distributable dmg file).
