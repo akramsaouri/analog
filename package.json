@@ -30,7 +30,8 @@
   "dependencies": {
     "date-fns": "^1.29.0",
     "electron-is-dev": "^1.0.1",
-    "lowdb": "^1.0.0"
+    "lowdb": "^1.0.0",
+    "opn": "^5.4.0"
   },
   "prettier": {
     "semi": false,

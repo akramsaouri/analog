@@ -18,12 +18,13 @@ const { getTrayImage } = require('./lib/helpers')
 const eventEmitter = new EventEmitter()
 
 // Load dev or prod db file.
-const dbPath = isDev
+let dbPath = isDev
   ? process.cwd()
   : `${process.env.HOME}/Library/Application Support/analog`
-const db = lowdb(new FileSync(join(dbPath, '/analog.json')))
-
+dbPath = join(dbPath, '/analog.json')
+const db = lowdb(new FileSync(dbPath))
 const analog = new Analog(db, eventEmitter)
+exports.dbPath = dbPath
 exports.analog = analog
 
 let mainWindow, tray
