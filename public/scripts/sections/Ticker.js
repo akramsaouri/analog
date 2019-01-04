@@ -6,7 +6,6 @@ class Ticker extends IpcRenderer {
     super(name)
     this.toggleTimer = this.toggleTimer.bind(this)
     this.subRenderTicker = this.subRenderTicker.bind(this)
-    this.cancelTimer = this.cancelTimer.bind(this)
   }
   fetch() {
     this.timer = analog.db.get('timer').value()
@@ -15,25 +14,9 @@ class Ticker extends IpcRenderer {
     document
       .querySelector('.ticker-toggle-btn')
       .addEventListener('click', this.toggleTimer)
-    // if (this.timer.active) {
-    //   document
-    //     .querySelector('.ticker-cancel-btn')
-    //     .addEventListener('click', this.cancelTimer)
-    // }
   }
   toggleTimer() {
     analog.toggleTimer()
-    this.emit('bounce_update_back', { receiver: 'dashboard' })
-    this.mount()
-  }
-  cancelTimer() {
-    analog.db
-      .get('timer')
-      .assign({
-        active: false,
-        lastSessionInMin: 0
-      })
-      .write()
     this.emit('bounce_update_back', { receiver: 'dashboard' })
     this.mount()
   }

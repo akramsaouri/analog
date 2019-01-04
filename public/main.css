@@ -42,19 +42,12 @@ section.ticker {
         background-position: center center;
         border: none;
         background-color: transparent;
+        outline: none;
         margin-left: 4px; }
         section.ticker .ticker-container .ticker-container-action .ticker-toggle-btn.ticker-stop-icon {
           background-image: url("./icons/ticker-stop.svg"); }
         section.ticker .ticker-container .ticker-container-action .ticker-toggle-btn.ticker-start-icon {
           background-image: url("./icons/ticker-start.svg"); }
-      section.ticker .ticker-container .ticker-container-action .ticker-cancel-btn {
-        width: 50px;
-        height: 50px;
-        background-position: center center;
-        border: none;
-        background-color: transparent;
-        background-image: url("./icons/cancel.svg");
-        margin-left: 4px; }
       section.ticker .ticker-container .ticker-container-action .ticker-duration {
         min-width: 96px;
         font-size: 20px;
