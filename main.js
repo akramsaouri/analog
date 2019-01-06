@@ -37,7 +37,11 @@ function createWindow() {
     mainWindow.webContents.openDevTools()
   }
 
-  tray = new Tray(getTrayImage(analog.db.get('timer').active))
+  const timer = analog.db.get('timer').value()
+  tray = new Tray(getTrayImage(timer.active))
+  if (timer.active) {
+    tray.setTitle(timer.project)
+  }
 
   tray.on('click', () => {
     // Give app focus when tray is clicked.
@@ -78,6 +82,7 @@ eventEmitter.on('timer-started', ({ project }) => {
   }).show()
   // Toggle tray image
   tray.setImage(getTrayImage(true))
+  tray.setTitle(project)
   updateSections()
 })
 
@@ -91,6 +96,7 @@ eventEmitter.on('timer-stopped', ({ project, lastSessionInMin }) => {
   }
   // Toggle tray image
   tray.setImage(getTrayImage(false))
+  tray.setTitle('')
   updateSections()
 })
 

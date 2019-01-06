@@ -7,12 +7,13 @@
 [Download](https://github.com/akramsaouri/analog/releases/latest) the `.dmg` file 
 
 ## Usage
+
 ### Global Shortcuts
 
 * Start/Stop timer: <kbd>cmd</kbd> + <kbd>alt</kbd> + <kbd>a</kbd>  
 
 ## Dev
-Build with [Electron](http://electronjs.org/).
+Built with [Electron](http://electronjs.org/).
 
 ### Run
 `$ npm install && npm start`
