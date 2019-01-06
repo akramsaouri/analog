@@ -10,29 +10,27 @@
   grid-template-rows: 116px 1fr; }
 
 section.ticker {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #72b4ee;
   -webkit-user-select: none;
   -webkit-app-region: drag; }
-  section.ticker .logo {
-    width: 80px;
-    height: 80px;
-    background-image: url("./icons/logo.svg");
-    margin: 0 auto;
-    border-radius: 50%; }
   section.ticker .ticker-container {
     display: grid;
-    grid-template-columns: 1fr 160px;
-    align-items: center; }
+    grid-template-columns: 1fr auto;
+    align-items: center; 
+    padding: 0 13px; }
     section.ticker .ticker-container::has(.ticker-cancel-btn) {
       grid-template-columns: 1fr 214px; }
     section.ticker .ticker-container .ticker-project {
       color: #faf9f9;
       font-size: 20px;
       font-family: 'Rubik', sans-serif;
-      font-weight: 500; }
+      font-weight: 500; 
+      border-left: 3px solid #faf9f9;
+      padding-left: 6px;
+    }
     section.ticker .ticker-container .ticker-container-action {
       display: flex;
       align-items: center; }
