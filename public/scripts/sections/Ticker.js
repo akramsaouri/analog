@@ -1,3 +1,5 @@
+const { ipcRenderer: ipc } = require('electron')
+
 const { formatMinutesDuration, formatDiff } = require('../../../lib/formatters')
 const IpcRenderer = require('../IpcRenderer')
 
@@ -5,7 +7,8 @@ class Ticker extends IpcRenderer {
   constructor(name) {
     super(name)
     this.toggleTimer = this.toggleTimer.bind(this)
-    this.subRenderTicker = this.subRenderTicker.bind(this)
+    this.renderCounter = this.renderCounter.bind(this)
+    ipc.on('render-counter', this.renderCounter)
   }
   fetch() {
     this.timer = analog.db.get('timer').value()
@@ -17,29 +20,25 @@ class Ticker extends IpcRenderer {
   }
   toggleTimer() {
     analog.toggleTimer()
-    this.emit('bounce_update_back', { receiver: 'dashboard' })
+    this.emit('bounce-update-back', { receiver: 'dashboard' })
     this.mount()
   }
-  subRenderTicker() {
+  renderCounter() {
     const container = document.querySelector('.ticker-duration')
-    if (this.timer.active) {
-      container.innerText = formatDiff(new Date(), this.timer.launchedAt)
-      setTimeout(this.subRenderTicker, 1000)
-    } else {
-      container.innerText = formatMinutesDuration(this.timer.lastSessionInMin)
-    }
+    container.innerText = formatDiff(new Date(), this.timer.launchedAt)
   }
   render() {
     document.querySelector('.ticker-container').innerHTML = `
       <h5 class='ticker-project'>${this.timer.project}</h5>
       <div class='ticker-container-action'>
-        <span class='ticker-duration'></span>
+        <span class='ticker-duration'>${formatMinutesDuration(
+          this.timer.lastSessionInMin
+        )}</span>
         <button class='ticker-toggle-btn ${
           this.timer.active ? 'ticker-stop-icon' : 'ticker-start-icon'
         } ' />
       </div>
     `
-    this.subRenderTicker()
   }
 }
 

@@ -67,12 +67,21 @@ app.on('window-all-closed', () => {
 })
 
 app.on('will-quit', () => {
+  const timer = analog.db.get('timer').value()
+  if (timer.active) {
+    analog.db.set('timer.active', false).write()
+  }
   globalShortcut.unregisterAll()
 })
 
-ipc.on('bounce_update_back', (_, { receiver }) => {
+ipc.on('bounce-update-back', (_, { receiver }) => {
   // Bounce event back to intended receiver.
   mainWindow.webContents.send('update_' + receiver)
+})
+
+eventEmitter.on('event-to-ipc', event => {
+  // Proxy event sent through event emitter to ipc listeners
+  mainWindow.webContents.send(event)
 })
 
 eventEmitter.on('timer-started', ({ project }) => {

@@ -35,7 +35,7 @@ class Dashboard extends IpcRenderer {
     const { projectName } = target.dataset
     analog.db.set('timer.project', projectName).write()
     analog.toggleTimer()
-    this.emit('bounce_update_back', { receiver: 'ticker' })
+    this.emit('bounce-update-back', { receiver: 'ticker' })
     this.mount()
   }
   selectDate({ target }) {
