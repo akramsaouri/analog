@@ -10,7 +10,7 @@ class Analog extends Storage {
     this.toggleTimer = this.toggleTimer.bind(this)
     this.tick = this.tick.bind(this)
   }
-  toggleTimer() {
+  toggleTimer(project) {
     this.timer = this.db.get('timer').value()
     const d = new Date()
     d.setHours(d.getHours())
@@ -29,6 +29,7 @@ class Analog extends Storage {
       this.timer.active = false
       this.emitter.emit('timer-stopped', this.timer)
     } else {
+      this.timer.project = project
       this.timer.launchedAt = d
       this.timer.active = true
       this.emitter.emit('timer-started', this.timer)

@@ -19,6 +19,8 @@ class Dashboard extends IpcRenderer {
       .get('projects')
       .byDate(this.dateKey)
       .value()
+      // put active project in top
+      .sort(a => (a.name === this.timer.project ? -1 : 1))
   }
   addEvtsListener() {
     document.querySelectorAll('.project-toggle-btn').forEach(btn => {
@@ -33,8 +35,7 @@ class Dashboard extends IpcRenderer {
   }
   toggleProject({ target }) {
     const { projectName } = target.dataset
-    analog.db.set('timer.project', projectName).write()
-    analog.toggleTimer()
+    analog.toggleTimer(projectName)
     this.emit('bounce-update-back', { receiver: 'ticker' })
     this.mount()
   }
