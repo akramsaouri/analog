@@ -5,7 +5,6 @@
   "main": "main.js",
   "scripts": {
     "start": "run-electron .",
-    "test": "jest",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
@@ -20,9 +19,8 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^3.0.0",
-    "electron-builder": "^20.28.4",
+    "electron-builder": "^20.41.0",
     "husky": "^1.1.2",
-    "jest": "^23.6.0",
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3",
     "run-electron": "^0.1.0"
