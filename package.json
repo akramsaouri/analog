@@ -32,7 +32,7 @@
     "electron-is-dev": "^1.0.1",
     "lowdb": "^1.0.0",
     "merge": "^1.2.1",
-    "opn": "^5.4.0"
+    "open": "^6.3.0"
   },
   "prettier": {
     "semi": false,
