@@ -18,6 +18,7 @@ class IpcRenderer {
     ipc.send(event, args)
   }
   mount() {
+    // console.log('mounting ' + this.name + ' do we need it?');
     const fns = ['fetch', 'subscribe', 'render', 'addEvtsListener']
     for (let i = 0; i < fns.length; i++) {
       const fn = fns[i]

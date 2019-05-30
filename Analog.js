@@ -1,4 +1,4 @@
-const { diffInMin, addMinutes, isSameSecond } = require('date-fns')
+const { differenceInMinutes, addMinutes, isSameSecond } = require('date-fns')
 
 const Storage = require('./Storage')
 const { getDateKey } = require('./lib/helpers')
@@ -15,7 +15,7 @@ class Analog extends Storage {
     const now = new Date()
     if (this.timer.active) {
       // save session in project
-      const sessionInMin = diffInMin(now, this.timer.launchedAt)
+      const sessionInMin = differenceInMinutes(now, this.timer.launchedAt)
       this.db
         .get('projects')
         .find({ name: this.timer.project })

@@ -30,7 +30,6 @@ class Ticker extends IpcRenderer {
   toggleTimebox() {
     analog.db.set('timer.timeboxed', !this.timer.timeboxed).write()
     this.emit('bounce-update-back', { receiver: 'timebox' })
-    this.mount()
   }
   renderCounter() {
     const container = document.querySelector('.ticker-duration')
