@@ -1,9 +1,11 @@
 const { getDateKey, navigateDateKey } = require('../../../lib/helpers')
+
 const {
   formatMinutesDuration,
   formatDateKey
 } = require('../../../lib/formatters')
 const IpcRenderer = require('../IpcRenderer')
+const Timebox = require('./Timebox')
 
 class Dashboard extends IpcRenderer {
   constructor(name) {
@@ -34,10 +36,9 @@ class Dashboard extends IpcRenderer {
       .addEventListener('click', this.resetDate)
   }
   toggleProject({ target }) {
+    const timebox = this.timer.timeboxed ? new Timebox().getValue() : null
     const { projectName } = target.dataset
-    analog.toggleTimer(projectName)
-    this.emit('bounce-update-back', { receiver: 'ticker' })
-    this.mount()
+    analog.toggleTimer(projectName, timebox)
   }
   selectDate({ target }) {
     // induce direction from clicked button

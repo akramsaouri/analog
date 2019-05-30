@@ -75,7 +75,7 @@ app.on('will-quit', () => {
 })
 
 ipc.on('bounce-update-back', (_, { receiver }) => {
-  // Bounce event back to intended receiver.
+  // Force section to re-render by bouncing event back to intended receiver
   mainWindow.webContents.send('update_' + receiver)
 })
 
@@ -110,7 +110,7 @@ eventEmitter.on('timer-stopped', ({ project, lastSessionInMin }) => {
 })
 
 function updateSections() {
-  ;['ticker', 'dashboard'].forEach(s =>
+  ;['ticker', 'dashboard', 'timebox'].forEach(s =>
     mainWindow.webContents.send('update_' + s)
   )
 }

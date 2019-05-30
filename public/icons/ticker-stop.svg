@@ -1,11 +1,10 @@
 
-<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="app" transform="translate(-734.000000, -33.000000)">
+        <g id="app" transform="translate(-680.000000, -44.000000)" fill="#DF0E19">
             <g id="top">
-                <g id="stop" transform="translate(734.000000, 33.000000)">
-                    <circle id="Oval" fill="#FFFFFF" cx="25" cy="25" r="25"></circle>
-                    <rect id="Rectangle-2" fill="#DF0E19" x="11" y="11" width="28" height="28" rx="3"></rect>
+                <g id="group" transform="translate(669.000000, 33.000000)">
+                    <rect id="Rectangle-2" x="11" y="11" width="28" height="28" rx="3"></rect>
                 </g>
             </g>
         </g>

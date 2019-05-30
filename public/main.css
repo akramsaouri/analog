@@ -12,14 +12,14 @@
 section.ticker {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   background-color: #72b4ee;
   -webkit-user-select: none;
   -webkit-app-region: drag; }
   section.ticker .ticker-container {
     display: grid;
     grid-template-columns: 1fr auto;
-    align-items: center; 
+    align-items: center;
     padding: 0 13px; }
     section.ticker .ticker-container::has(.ticker-cancel-btn) {
       grid-template-columns: 1fr 214px; }
@@ -27,25 +27,18 @@ section.ticker {
       color: #faf9f9;
       font-size: 20px;
       font-family: 'Rubik', sans-serif;
-      font-weight: 500; 
+      font-weight: 500;
       border-left: 3px solid #faf9f9;
-      padding-left: 6px;
-    }
+      padding-left: 6px; }
     section.ticker .ticker-container .ticker-container-action {
       display: flex;
       align-items: center; }
-      section.ticker .ticker-container .ticker-container-action .ticker-toggle-btn {
-        width: 50px;
-        height: 50px;
-        background-position: center center;
-        border: none;
-        background-color: transparent;
-        outline: none;
-        margin-left: 4px; }
-        section.ticker .ticker-container .ticker-container-action .ticker-toggle-btn.ticker-stop-icon {
-          background-image: url("./icons/ticker-stop.svg"); }
-        section.ticker .ticker-container .ticker-container-action .ticker-toggle-btn.ticker-start-icon {
-          background-image: url("./icons/ticker-start.svg"); }
+      section.ticker .ticker-container .ticker-container-action .ticker-stop-icon {
+        background-image: url("./icons/ticker-stop.svg"); }
+      section.ticker .ticker-container .ticker-container-action .ticker-start-icon {
+        background-image: url("./icons/ticker-start.svg"); }
+      section.ticker .ticker-container .ticker-container-action .ticker-timer-icon {
+        background-image: url("./icons/ticker-timer.svg"); }
       section.ticker .ticker-container .ticker-container-action .ticker-duration {
         min-width: 96px;
         font-size: 20px;
@@ -53,6 +46,33 @@ section.ticker {
         font-weight: 300;
         font-family: 'Rubik', sans-serif;
         letter-spacing: 1.3px; }
+  section.ticker .timebox-container {
+    padding: 0 13px; }
+    section.ticker .timebox-container .timebox-controls {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center; }
+      section.ticker .timebox-container .timebox-controls .timebox-label {
+        font-size: 14px;
+        font-family: 'Rubik', sans-serif;
+        color: #faf9f9;
+        margin-right: 6px; }
+      section.ticker .timebox-container .timebox-controls .timebox-radio {
+        margin-right: 16px; }
+      section.ticker .timebox-container .timebox-controls .timebox-input {
+        border: none;
+        color: #367bb8;
+        font-size: 12px;
+        font-family: 'Rubik', sans-seif;
+        padding: 2px 0;
+        border-radius: 12px;
+        text-indent: 4px;
+        width: 88px;
+        text-align: center; }
+        section.ticker .timebox-container .timebox-controls .timebox-input::-webkit-outer-spin-button, section.ticker .timebox-container .timebox-controls .timebox-input::-webkit-inner-spin-button {
+          -webkit-appearance: none; }
+        section.ticker .timebox-container .timebox-controls .timebox-input::placeholder {
+          color: #72b4ee; }
 
 section.dashboard {
   background-color: #e8f3fc;
@@ -146,3 +166,14 @@ section.dashboard {
       letter-spacing: 1.2px;
       color: #367bb8;
       outline: none; }
+
+.app-btn-icon {
+  width: 50px;
+  height: 50px;
+  background-position: center center;
+  background-color: white;
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  margin-left: 4px; }

@@ -2,12 +2,14 @@ const { ipcRenderer: ipc } = require('electron')
 
 const { formatMinutesDuration, formatDiff } = require('../../../lib/formatters')
 const IpcRenderer = require('../IpcRenderer')
+const Timebox = require('./Timebox')
 
 class Ticker extends IpcRenderer {
   constructor(name) {
     super(name)
     this.toggleTimer = this.toggleTimer.bind(this)
     this.renderCounter = this.renderCounter.bind(this)
+    this.toggleTimebox = this.toggleTimebox.bind(this)
     ipc.on('render-counter', this.renderCounter)
   }
   fetch() {
@@ -15,17 +17,26 @@ class Ticker extends IpcRenderer {
   }
   addEvtsListener() {
     document
-      .querySelector('.ticker-toggle-btn')
+      .querySelector('#ticker-toggle-btn')
       .addEventListener('click', this.toggleTimer)
+    document
+      .querySelector('#timebox-toggle-btn')
+      .addEventListener('click', this.toggleTimebox)
   }
   toggleTimer() {
-    analog.toggleTimer()
-    this.emit('bounce-update-back', { receiver: 'dashboard' })
+    const timebox = this.timer.timeboxed ? new Timebox().getValue() : null
+    analog.toggleTimer(null, timebox)
+  }
+  toggleTimebox() {
+    analog.db.set('timer.timeboxed', !this.timer.timeboxed).write()
+    this.emit('bounce-update-back', { receiver: 'timebox' })
     this.mount()
   }
   renderCounter() {
     const container = document.querySelector('.ticker-duration')
-    container.innerText = formatDiff(new Date(), this.timer.launchedAt)
+    container.innerText = this.timer.timeboxed
+      ? formatDiff(this.timer.dueAt, new Date())
+      : formatDiff(new Date(), this.timer.launchedAt)
   }
   render() {
     document.querySelector('.ticker-container').innerHTML = `
@@ -34,9 +45,10 @@ class Ticker extends IpcRenderer {
         <span class='ticker-duration'>${formatMinutesDuration(
           this.timer.lastSessionInMin
         )}</span>
-        <button class='ticker-toggle-btn ${
+        <button class='app-btn-icon ${
           this.timer.active ? 'ticker-stop-icon' : 'ticker-start-icon'
-        } ' />
+        } ' id='ticker-toggle-btn' />
+        <button class='app-btn-icon ticker-timer-icon' id='timebox-toggle-btn'/>
       </div>
     `
   }

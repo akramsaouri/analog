@@ -12,14 +12,19 @@
 
     <section class='ticker'>
       <div class="ticker-container">
-        <span class='ticker-duration'></span>
+        <!-- js generated -->
+      </div>
+      <div class="timebox-container">
+        <!-- js generated -->
       </div>
     </section>
 
     <section class='dashboard'>
       <div class="dashboard-container">
+        <!-- js generated -->
       </div>
       <div class="dashboard-footer">
+        <!-- js generated -->
       </div>
     </section>
 
@@ -39,6 +44,8 @@
     new Dashboard('dashboard').mount()
     const Ticker = require('./scripts/sections/Ticker')
     new Ticker('ticker').mount()
+    const Timebox = require('./scripts/sections/Timebox')
+    new Timebox('timebox').mount()
     const Footer = require('./scripts/sections/Footer')
     new Footer('footer').mount()
 
