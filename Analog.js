@@ -1,4 +1,9 @@
-const { differenceInMinutes, addMinutes, isSameSecond } = require('date-fns')
+const {
+  differenceInMinutes,
+  addMinutes,
+  isSameSecond,
+  isAfter
+} = require('date-fns')
 
 const Storage = require('./Storage')
 const { getDateKey } = require('./lib/helpers')
@@ -50,7 +55,9 @@ class Analog extends Storage {
       this.emitter.emit('event-to-ipc', 'render-counter')
       if (this.timer.timeboxed) {
         // checked if countdown is done
-        const isCountdownDone = isSameSecond(this.timer.dueAt, new Date())
+        const isCountdownDone =
+          isSameSecond(this.timer.dueAt, new Date()) ||
+          isAfter(new Date(), this.timer.dueAt)
         if (isCountdownDone) {
           this.toggleTimer()
         }

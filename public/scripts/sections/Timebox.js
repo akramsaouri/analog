@@ -48,12 +48,8 @@ class Timebox extends IpcRenderer {
     const listHtml = this.presetValues
       .map(
         (x, i) => `
-                <label for='preset-${i}' class='timebox-label'>${
-          x.label
-        }</label>
-                <input type='radio' id='preset-${i}' name='timebox_radio' class='timebox-radio' value='${
-          x.value
-        }' ${disabledControl} />
+                <label for='preset-${i}' class='timebox-label'>${x.label}</label>
+                <input type='radio' id='preset-${i}' name='timebox_radio' class='timebox-radio' value='${x.value}' ${disabledControl} />
             `
       )
       .join('')
