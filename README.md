@@ -1,6 +1,6 @@
 # analog
 
-> Simple month-based time tracking for your projects.
+> (month-based) Time tracking for your personal projects/habits.
 
 ## Install (macOS)
 
