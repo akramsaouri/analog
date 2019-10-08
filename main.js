@@ -18,9 +18,7 @@ const { getTrayImage } = require('./lib/helpers')
 const eventEmitter = new EventEmitter()
 
 // Load dev or prod db file.
-let dbPath = isDev
-  ? process.cwd()
-  : `${process.env.HOME}/Library/Application Support/analog`
+let dbPath = isDev ? process.cwd() : app.getPath('userData')
 dbPath = join(dbPath, '/analog.json')
 const db = lowdb(new FileSync(dbPath))
 const analog = new Analog(db, eventEmitter)
@@ -30,7 +28,12 @@ exports.analog = analog
 let mainWindow, tray
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 800, height: 600, frame: false })
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    frame: false,
+    webPreferences: { nodeIntegration: true }
+  })
   mainWindow.loadFile('public/index.html')
 
   if (isDev) {

@@ -20,7 +20,10 @@ class Analog extends Storage {
     const now = new Date()
     if (this.timer.active) {
       // save session in project
-      const sessionInMin = differenceInMinutes(now, this.timer.launchedAt)
+      const sessionInMin = differenceInMinutes(
+        now,
+        new Date(this.timer.launchedAt)
+      )
       this.db
         .get('projects')
         .find({ name: this.timer.project })
@@ -56,8 +59,8 @@ class Analog extends Storage {
       if (this.timer.timeboxed) {
         // checked if countdown is done
         const isCountdownDone =
-          isSameSecond(this.timer.dueAt, new Date()) ||
-          isAfter(new Date(), this.timer.dueAt)
+          isSameSecond(new Date(this.timer.dueAt), new Date()) ||
+          isAfter(new Date(), new Date(this.timer.dueAt))
         if (isCountdownDone) {
           this.toggleTimer()
         }
