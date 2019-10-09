@@ -4,30 +4,64 @@ const {
   globalShortcut,
   ipcMain: ipc,
   Notification,
-  Tray
+  Tray,
+  Menu
 } = require('electron')
 const lowdb = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const EventEmitter = require('events')
 const isDev = require('electron-is-dev')
 const { join } = require('path')
+const { renameSync } = require('fs')
+const Settings = require('electron-store')
 
 const Analog = require('./Analog')
 const { getTrayImage } = require('./lib/helpers')
 
 const eventEmitter = new EventEmitter()
-
+const settingsConfig = {
+  name: 'settings',
+  defaults: {
+    dbPath: app.getPath('userData')
+  },
+  schema: {
+    dbPath: {
+      type: 'string'
+    }
+  }
+}
+if (isDev) {
+  // use local settings file on dev
+  settingsConfig.cwd = process.cwd()
+  // use local db file on dev
+  settingsConfig.defaults.dbPath = process.cwd()
+}
+const settings = new Settings(settingsConfig)
 // Load dev or prod db file.
-let dbPath = isDev ? process.cwd() : app.getPath('userData')
-dbPath = join(dbPath, '/analog.json')
+const dbPath = join(settings.get('dbPath'), '/analog.json')
 const db = lowdb(new FileSync(dbPath))
 const analog = new Analog(db, eventEmitter)
 exports.dbPath = dbPath
 exports.analog = analog
+exports.settings = settings
 
-let mainWindow, tray
+let mainWindow, tray, settingsWindow
 
-function createWindow() {
+function createMainWindow() {
+  const menuTemplate = [
+    {
+      label: 'Analog',
+      submenu: [
+        {
+          label: 'Preferences',
+          accelerator: 'CmdOrCtrl+,',
+          click: createSettingsWindow
+        }
+      ]
+    }
+  ]
+  const menu = Menu.buildFromTemplate(menuTemplate)
+  Menu.setApplicationMenu(menu)
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -56,7 +90,27 @@ function createWindow() {
   })
 }
 
-app.on('ready', createWindow)
+function createSettingsWindow() {
+  if (settingsWindow) {
+    settingsWindow.focus()
+    return
+  }
+
+  settingsWindow = new BrowserWindow({
+    width: 400,
+    height: 250,
+    webPreferences: { nodeIntegration: true }
+  })
+  settingsWindow.loadFile('public/settings.html')
+  settingsWindow.webContents.openDevTools()
+
+  settingsWindow.on('closed', () => {
+    settingsWindow = null
+  })
+}
+
+app.on('ready', createMainWindow)
+app.on('ready', createSettingsWindow)
 
 app.on('ready', () => {
   globalShortcut.register('CommandOrControl+Shift+A', analog.toggleTimer)
@@ -117,3 +171,7 @@ function updateSections() {
     mainWindow.webContents.send('update_' + s)
   )
 }
+
+settings.onDidChange('dbPath', (newPath, oldPath) => {
+  renameSync(join(oldPath, '/analog.json'), join(newPath, '/analog.json'))
+})

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Settings</title>
+  <link rel="stylesheet" href="./settings.css">
+</head>
+
+<body>
+  <section class="settings">
+    <fieldset class="settings-row">
+      <label for='dbpath' class="settings-row-label">Database path:</label>
+      <div style="display: flex">
+        <input name='dbpath' id='dbpath' class="settings-row-input settings-row-input--withicon" />
+        <label for='hiddendbpath'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="#72b4ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-folder">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </label>
+        <input type="file" id='hiddendbpath' webkitdirectory style="display: none" />
+      </div>
+      <span class="settings-row-hint" style="display: none">
+        Warning: All Existing data will be moved to new location.
+      </span>
+    </fieldset>
+
+    <div>
+      <button class="settings-row-button-save">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-save">
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+          <polyline points="17 21 17 13 7 13 7 21"></polyline>
+          <polyline points="7 3 7 8 15 8"></polyline>
+        </svg> Save
+      </button>
+    </div>
+
+  </section>
+  <script>
+    // PS: all objects declared here are accessible in the section scripts
+
+    // electron deps
+    const { remote, ipcRenderer: ipc } = require('electron')
+
+    // remote refs
+    const { settings } = remote.require('./main.js')
+
+    const dom = {
+      dbPathInput: 'input#dbpath',
+      hiddenDbPathInput: 'input#hiddendbpath',
+      save: '.settings-row-button-save',
+      hint: '.settings-row-hint'
+    }
+
+    document.querySelector(dom.dbPathInput).value = settings.get('dbPath')
+
+    document.querySelector(dom.hiddenDbPathInput)
+      // copy dbpath from hidden input to input on dir selection end
+      .addEventListener('change', ({ target: { files } }) => {
+        if (files.length === 0) {
+          return
+        }
+        const path = files[0].path
+        if (path === settings.get('dbPath')) {
+          return
+        }
+        document.querySelector(dom.dbPathInput).value = path
+        document.querySelector(dom.hint).style.display = 'block'
+      })
+
+    document.querySelector(dom.save).addEventListener('click', () => {
+      // persist settings to store
+      const path = document.querySelector(dom.dbPathInput).value
+      settings.set('dbPath', path)
+    })
+  </script>
+</body>
+
+</html>
