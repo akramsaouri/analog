@@ -17,6 +17,7 @@ const Settings = require('electron-store')
 
 const Analog = require('./Analog')
 const { getTrayImage } = require('./lib/helpers')
+const { template } = require('./menu')
 
 const eventEmitter = new EventEmitter()
 const settingsConfig = {
@@ -48,20 +49,18 @@ exports.settings = settings
 let mainWindow, tray, settingsWindow
 
 function createMainWindow() {
-  const menuTemplate = [
-    {
-      label: 'Analog',
-      submenu: [
-        {
-          label: 'Preferences',
-          accelerator: 'CmdOrCtrl+,',
-          click: createSettingsWindow
-        }
-      ]
-    }
-  ]
-  const menu = Menu.buildFromTemplate(menuTemplate)
+  // Init menu
+  const preferences = {
+    label: 'Preferences',
+    accelerator: 'CmdOrCtrl+,',
+    click: createSettingsWindow
+  }
+  // prepend preferences to menu template
+  template[0].submenu.unshift(preferences)
+  const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
+
+  // Init window
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -74,6 +73,7 @@ function createMainWindow() {
     mainWindow.webContents.openDevTools()
   }
 
+  // recover tray state
   const timer = analog.db.get('timer').value()
   tray = new Tray(getTrayImage(timer.active))
   if (timer.active) {
@@ -102,7 +102,10 @@ function createSettingsWindow() {
     webPreferences: { nodeIntegration: true }
   })
   settingsWindow.loadFile('public/settings.html')
-  settingsWindow.webContents.openDevTools()
+
+  if (isDev) {
+    mainWindow.webContents.openDevTools()
+  }
 
   settingsWindow.on('closed', () => {
     settingsWindow = null
