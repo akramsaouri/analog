@@ -11,7 +11,7 @@
   <section class="settings">
     <fieldset class="settings-row">
       <label for='dbpath' class="settings-row-label">Database path:</label>
-      <div style="display: flex">
+      <div style="display: flex; align-items: center">
         <input name='dbpath' id='dbpath' class="settings-row-input settings-row-input--withicon" />
         <label for='hiddendbpath'>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -23,7 +23,7 @@
         <input type="file" id='hiddendbpath' webkitdirectory style="display: none" />
       </div>
       <span class="settings-row-hint" style="display: none">
-        Warning: All Existing data will be moved to new location.
+        Warning: all existing data will be moved to new location.
       </span>
     </fieldset>
 
@@ -35,7 +35,10 @@
           <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
           <polyline points="17 21 17 13 7 13 7 21"></polyline>
           <polyline points="7 3 7 8 15 8"></polyline>
-        </svg> Save
+        </svg> 
+        <span style="margin-left: 4px">
+          Save and quit
+        </span>
       </button>
     </div>
 
@@ -55,7 +58,7 @@
       save: '.settings-row-button-save',
       hint: '.settings-row-hint'
     }
-
+    let changed = false
     document.querySelector(dom.dbPathInput).value = settings.get('dbPath')
 
     document.querySelector(dom.hiddenDbPathInput)

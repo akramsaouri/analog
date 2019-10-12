@@ -53,5 +53,5 @@
   border: none;
   font-family: 'Rubik', sans-serif;
   font-size: 14px;
-  vertical-align: middle;
+  display: flex;
 }

@@ -12,7 +12,7 @@ const FileSync = require('lowdb/adapters/FileSync')
 const EventEmitter = require('events')
 const isDev = require('electron-is-dev')
 const { join } = require('path')
-const { renameSync } = require('fs')
+const { rename } = require('fs')
 const Settings = require('electron-store')
 
 const Analog = require('./Analog')
@@ -110,7 +110,6 @@ function createSettingsWindow() {
 }
 
 app.on('ready', createMainWindow)
-app.on('ready', createSettingsWindow)
 
 app.on('ready', () => {
   globalShortcut.register('CommandOrControl+Shift+A', analog.toggleTimer)
@@ -173,5 +172,13 @@ function updateSections() {
 }
 
 settings.onDidChange('dbPath', (newPath, oldPath) => {
-  renameSync(join(oldPath, '/analog.json'), join(newPath, '/analog.json'))
+  if (newPath === oldPath) return
+  rename(join(oldPath, '/analog.json'), join(newPath, '/analog.json'), err => {
+    if (err) {
+      // revert on error
+      settings.set('dbPath', oldPath)
+      return console.log(err)
+    }
+    app.quit()
+  })
 })
