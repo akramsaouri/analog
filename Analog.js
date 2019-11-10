@@ -44,6 +44,7 @@ class Analog extends Storage {
       if (timebox) {
         // schedule dueAt for ticking
         this.timer.dueAt = addMinutes(now, timebox)
+        this.timer.lastSessionInMin = timebox
       }
       this.timer.launchedAt = now
       this.timer.active = true

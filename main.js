@@ -143,10 +143,13 @@ eventEmitter.on('event-to-ipc', event => {
   mainWindow.webContents.send(event)
 })
 
-eventEmitter.on('timer-started', ({ project }) => {
+eventEmitter.on('timer-started', ({ project, lastSessionInMin, timeboxed }) => {
   new Notification({
     title: project,
-    subtitle: `GO GO GO!`
+    subtitle:
+      timeboxed && lastSessionInMin
+        ? `${lastSessionInMin}min to go.`
+        : 'Gambatte!'
   }).show()
   // Toggle tray image
   tray.setImage(getTrayImage(true))
