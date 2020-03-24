@@ -133,9 +133,9 @@ app.on('will-quit', () => {
   globalShortcut.unregisterAll()
 })
 
-ipc.on('bounce-update-back', (_, { receiver }) => {
+ipc.on('bounce-update-back', (_, { receiver, ...passOnArgs }) => {
   // Force section to re-render by bouncing event back to intended receiver
-  mainWindow.webContents.send('update_' + receiver)
+  mainWindow.webContents.send('update_' + receiver, { ...passOnArgs })
 })
 
 eventEmitter.on('event-to-ipc', event => {

@@ -99,8 +99,7 @@ section.ticker .timebox-container .timebox-controls .timebox-input {
 	text-align: center;
 }
 
-section.ticker .timebox-container .timebox-controls .timebox-input::-webkit-outer-spin-button,
-section.ticker .timebox-container .timebox-controls .timebox-input::-webkit-inner-spin-button {
+section.ticker .timebox-container .timebox-controls .timebox-input::-webkit-outer-spin-button, section.ticker .timebox-container .timebox-controls .timebox-input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 }
 
@@ -163,7 +162,6 @@ section.dashboard .dashboard-container .dashboard-list .list-header {
 	font-weight: 400;
 	margin-bottom: 13px;
 	letter-spacing: 1.23px;
-	text-transform: capitalize;
 	color: #72b4ee;
 }
 
@@ -180,7 +178,7 @@ section.dashboard .dashboard-container .dashboard-list .project-item {
 }
 
 section.dashboard .dashboard-container .dashboard-list {
-  overflow-y: auto;
+	overflow-y: auto;
 }
 
 section.dashboard .dashboard-container .dashboard-list .project-item:hover {
@@ -224,7 +222,9 @@ section.dashboard .dashboard-container .dashboard-list .project-item .project-de
 }
 
 section.dashboard .dashboard-footer {
-	margin-left: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	align-self: center;
 }
 
@@ -238,6 +238,24 @@ section.dashboard .dashboard-footer .manage-dashboard-btn {
 	letter-spacing: 1.2px;
 	color: #367bb8;
 	outline: none;
+	border-bottom: 1px solid #367bb8;
+}
+
+section.dashboard .dashboard-footer .project-analog-summary {
+	font-family: 'Rubik', sans-serif;
+	font-size: 14px;
+}
+
+section.dashboard .dashboard-footer .project-analog-summary .project-analog-label {
+	font-weight: 400;
+	letter-spacing: 1.23px;
+	color: #72b4ee;
+}
+
+section.dashboard .dashboard-footer .project-analog-summary .project-analog-total {
+	font-weight: 500;
+	color: #367bb8;
+	cursor: pointer;
 }
 
 .app-btn-icon {

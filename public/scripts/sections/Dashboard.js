@@ -23,6 +23,11 @@ class Dashboard extends IpcRenderer {
       .value()
       // put active project in top
       .sort(a => (a.name === this.timer.project ? -1 : 1))
+    const totalMs = this.projects.reduce(
+      (acc, project) => acc + project.analogs,
+      0
+    )
+    this.emit('bounce-update-back', { receiver: 'footer', totalMs })
   }
   addEvtsListener() {
     document.querySelectorAll('.project-toggle-btn').forEach(btn => {
@@ -79,7 +84,7 @@ class Dashboard extends IpcRenderer {
       ${filterHtml}
     </div>
     <div class='dashboard-list'>
-      <h5 class='list-header'>Active projects</h5>
+      <h5 class='list-header'>Active Projects</h5>
       <div>${listHtml}</div>
     </div>
     `
