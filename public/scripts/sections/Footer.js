@@ -23,8 +23,8 @@ class Ticker extends IpcRenderer {
       .querySelector('.project-analog-total')
       .addEventListener('click', this.updateTotalUnit)
   }
-  onUpdateFooter(_, { totalMs }) {
-    this.totalMs = totalMs
+  onUpdateFooter(_, { totalInMs }) {
+    this.totalInMs = totalInMs
     setTimeout(() => {
       // the setTimeout is a necessary hack to wait for the render
       this.updateTotalValue()
@@ -33,8 +33,8 @@ class Ticker extends IpcRenderer {
   updateTotalValue() {
     const container = document.querySelector('.project-analog-total')
     container.innerText = this.minUnit
-      ? `${this.totalMs}min`
-      : formatMinutesDuration(this.totalMs)
+      ? `${this.totalInMs}min`
+      : formatMinutesDuration(this.totalInMs)
   }
   updateTotalUnit() {
     this.minUnit = !this.minUnit

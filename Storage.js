@@ -22,7 +22,8 @@ class Storage {
     this.db.defaults(defaultState).write()
     this.db._.mixin({
       byDate: this.byDate,
-      inc: this.inc
+      inc: this.inc,
+      sortByActive: this.sortByActive
     })
   }
   byDate(arr, dateKey) {
@@ -36,6 +37,11 @@ class Storage {
         // filter no longer active projects
         .filter(x => !x.archived)
     )
+  }
+  sortByActive(arr) {
+    // sort by most active projects to less active ones
+    //! this fn assumes analogs are grouped by date
+    return arr.sort((p1, p2) => (p1.analogs > p2.analogs ? -1 : 1))
   }
   inc(project, date, analog) {
     if (!project.analogs[date]) {

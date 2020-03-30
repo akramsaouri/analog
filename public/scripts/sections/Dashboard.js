@@ -14,20 +14,28 @@ class Dashboard extends IpcRenderer {
     this.toggleProject = this.toggleProject.bind(this)
     this.selectDate = this.selectDate.bind(this)
     this.resetDate = this.resetDate.bind(this)
+    this.sortByCurrentlyActive = this.sortByCurrentlyActive.bind(this)
   }
   fetch() {
     this.timer = analog.db.get('timer').value()
-    this.projects = analog.db
-      .get('projects')
+    const projects = analog.db.get('projects')
+    this.projects = projects
       .byDate(this.dateKey)
+      .sortByActive()
       .value()
-      // put active project in top
-      .sort(a => (a.name === this.timer.project ? -1 : 1))
-    const totalMs = this.projects.reduce(
+      // put active projectin top
+      .sort(p => ((p.name === this.timer.project) === name ? -1 : 1))
+    if (this.timer.active) {
+      this.projects = this.projects.sort(this.sortByCurrentlyActive)
+    }
+    const totalInMs = this.projects.reduce(
       (acc, project) => acc + project.analogs,
       0
     )
-    this.emit('bounce-update-back', { receiver: 'footer', totalMs })
+    this.emit('bounce-update-back', { receiver: 'footer', totalInMs })
+  }
+  sortByCurrentlyActive(project) {
+    return this.timer.project === project.name ? -1 : 0
   }
   addEvtsListener() {
     document.querySelectorAll('.project-toggle-btn').forEach(btn => {
