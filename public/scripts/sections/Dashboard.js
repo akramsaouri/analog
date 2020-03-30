@@ -23,8 +23,6 @@ class Dashboard extends IpcRenderer {
       .byDate(this.dateKey)
       .sortByActive()
       .value()
-      // put active projectin top
-      .sort(p => ((p.name === this.timer.project) === name ? -1 : 1))
     if (this.timer.active) {
       this.projects = this.projects.sort(this.sortByCurrentlyActive)
     }
