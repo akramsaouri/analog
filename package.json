@@ -18,7 +18,7 @@
   "author": "Akram Saouri",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^6.0.11",
+    "electron": "^18.3.7",
     "electron-builder": "^21.2.0",
     "husky": "^3.0.8",
     "lint-staged": "^9.4.2",
